@@ -7,11 +7,8 @@ export default class Question extends React.Component {
 
   render() {
     return(
-      <li className="li">
-        <a href="">
-          {console.log(this.props)}
-          <span className="nav-text">{this.props.question}</span>
-        </a>
+      <li className="liBorder">
+        <span className="nav-text">{this.props.index+1}) {this.props.question}</span>
       </li>
     )
   }
