@@ -7,7 +7,7 @@ export default class Question extends React.Component {
 
   render() {
     return(
-      <li>
+      <li className="li">
         <a href="">
           {console.log(this.props)}
           <span className="nav-text">{this.props.question}</span>
