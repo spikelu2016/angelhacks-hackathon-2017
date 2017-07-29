@@ -7,9 +7,12 @@ export default class Question extends React.Component {
 
   render() {
     return(
-      <div>
-        The question is: {this.props.question}
-      </div>
+      <li className="li">
+        <a href="">
+          {console.log(this.props)}
+          <span className="nav-text">{this.props.question}</span>
+        </a>
+      </li>
     )
   }
 }
