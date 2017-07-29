@@ -72,7 +72,8 @@ h4{
 
 #nav:target, nav.main-menu.expanded {
 width:250px;
-overflow:hidden;
+// overflow:hidden;
+overflow-y: scroll;
 opacity:1;
 }
 
@@ -81,7 +82,8 @@ background: #80deea;
 float: left;
 height:100vh;
 width:0;
-overflow:hidden;
+// overflow:hidden;
+overflow: scroll;
 -webkit-transition:width .2s linear;
 transition:width .2s linear;
 -webkit-transform:translateZ(0) scale(1,1);
@@ -119,4 +121,9 @@ border-bottom:1px solid #f2f2f2;
 textarea{
 padding-top: 30px !important;
 line-height: 140% !important;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }

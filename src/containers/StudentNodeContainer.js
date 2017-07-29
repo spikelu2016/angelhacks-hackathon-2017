@@ -51,7 +51,7 @@ export default class StudentNodeContainer extends React.Component {
           <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))}
         </div>
       </div>
-        <StudentQuestionsContainer socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
+        <StudentQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
         <div className="canvas-container">
                   this is the canvas container
                 </div>
