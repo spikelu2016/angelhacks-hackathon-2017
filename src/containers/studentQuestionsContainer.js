@@ -32,24 +32,21 @@ export default class StudentQuestionsContainer extends React.Component {
 
   render() {
     return(
-      <div>
-      <div>
-        {this.props.questionsArr.map((question, i) => <Question key={i} question={question.question}/>)}
-      </div>
-      <div className="row">
-    <form className="col s12">
-      <div className="row">
-        <div className="col s12">
-          <div className="input-field inline">
-            <input id="questionInput" type="text" onChange={(e) => this.updateQuestion(e)}/>
-            <label htmlFor="questionInput" data-error="wrong" data-success="right">Ask a question...</label>
-          </div>
-          <br/>
-          <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn">Ask!</a>
+
+<div>
+  <nav className="main-menu" id="nav">
+    <a href="#" className="untarget"><i className="large material-icons center ">keyboard_arrow_left</i></a>
+    <ul>
+      <li>
+        <div className="input-field ask-question-form">
+          <textarea id="questionInput" className="materialize-textarea" onChange={(e) => this.updateQuestion(e)}></textarea>
+          <label htmlFor="questionInput" data-error="wrong" data-success="right">Ask a question...</label>
         </div>
-      </div>
-    </form>
-  </div>
+        <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn">Ask!</a>
+      </li>
+      {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question}/>)}
+</ul>
+</nav>
 </div>
     )
   }
