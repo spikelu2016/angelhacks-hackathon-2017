@@ -20,3 +20,103 @@ h4{
   position: relative;
   top: 22px;
 }
+.card-content-doc{
+  background-color: #518FF5;
+  height: 70px !important;
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 7px;
+}
+
+.card-panel-login{
+  float: left;
+  height: 300px;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  right: 215px;
+}
+
+.card-panel-node{
+  float: left;
+  height: 100%;
+  width: 415px;
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
+  position: relative;
+  right: 215px;
+}
+.student-card{
+  margin-left: 50%;
+}
+
+.spacer{
+  float: left;
+  width: 50px;
+  color: #EEEEEE
+}
+
+.node-container{
+  background-color: gray;
+  width: 400px;
+  float: left;
+  height:100vh;
+}
+
+.canvas-container{
+  background-color: yellow
+}
+
+#nav:target, nav.main-menu.expanded {
+width:250px;
+overflow:hidden;
+opacity:1;
+}
+
+#nav {
+background: #80deea;
+float: left;
+height:100vh;
+width:0;
+overflow:hidden;
+-webkit-transition:width .2s linear;
+transition:width .2s linear;
+-webkit-transform:translateZ(0) scale(1,1);
+box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
+  opacity:1;
+}
+
+.main-menu>ul {
+margin:7px 0;
+}
+
+.main-menu .liBorder {
+width:255px;
+display:table;
+border-top:1px solid #f2f2f2;
+}
+
+.main-menu .liBorder:last-child {
+border-bottom:1px solid #f2f2f2;
+}
+
+.untarget {
+  background-color:#00bbbb;
+}
+.untarget:hover {
+}
+
+:target .untarget {
+    display: block;
+}
+
+.ask-question-form{
+  width: 250px;
+}
+textarea{
+padding-top: 30px !important;
+line-height: 140% !important;
+}
