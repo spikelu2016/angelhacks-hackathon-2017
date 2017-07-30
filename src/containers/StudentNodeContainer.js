@@ -49,7 +49,6 @@ export default class StudentNodeContainer extends React.Component {
     return(
       <div>
         <div className="node-container">
-
           <div className="card-row-1 student-card card-panel  white  card-panel-node">
             {/* {this.props.allNodes.map((item, index) => (
               <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))} */}

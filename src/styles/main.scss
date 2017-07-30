@@ -84,12 +84,19 @@ h4{
   width: 400px;
   float: left;
   height:100vh;
-
+  z-index: 9999;
+  border-style: solid;
+  position: relative;
 }
 
 .canvas-container{
-  float: left;
-  width: 50%;
+  position: absolute;
+  right: 18vh;
+  top: 0;
+  width: 600px;
+  height: 100vh;
+  overflow: scroll;
+  z-index: 0;
 }
 
 #nav:target, nav.main-menu.expanded {
@@ -172,11 +179,13 @@ font-size: 17px;
   font-size: 25px;
 }
 
+.sound-wave{
+  width: 300px;
+}
+
 .canvasScreen {
-    width: 100% !important;
+    width: 600px;
     height: 2000px;
     background-color: white;
     clear: both;
-    position:absolute;
-    border: black solid 5px;
   }
