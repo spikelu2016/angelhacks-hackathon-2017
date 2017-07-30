@@ -57,20 +57,6 @@ export default class ProfessorNodeContainer extends React.Component {
   }
 
   render() {
-    const actions = [
-    <FlatButton
-      label="Cancel"
-      primary={true}
-      onClick={() => this.handleClose()}
-    />,
-    <FlatButton
-      label="Create"
-      primary={true}
-      keyboardFocused={true}
-      onClick={() => this.handleClose()}
-    />,
-  ];
-
     return(
       <div>
         <div className="node-container">
@@ -82,40 +68,6 @@ export default class ProfessorNodeContainer extends React.Component {
           </div>
       </div>
         <ProfessorQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
-        <div onClick={this.handleOpen.bind(this)} className="btn">Add a new Topic</div>
-        <Dialog
-          title="Create a new topic"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose.bind(this)}>
-          <div className="input-field col s12">
-  <select>
-    <option value="" disabled defaultValue>Choose your option</option>
-    <option value="1">Topic</option>
-    <option value="2">Sub-Topic</option>
-  </select>
-</div>
-          <div className="row">
-            <form className="col s12">
-              <div className="row">
-                <div className="input-field col s10 offset-s1">
-                  <input id="coure" type="text" className="validate" onChange={(e)=> this.updateCourse(e)}/>
-                  <label htmlFor="coure">Topic Title</label>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="row">
-            <form className="col s12">
-              <div className="row">
-                <div className="input-field col s10 offset-s1">
-                <div onClick={(e)=> this.redirect(e)} className="btn signup-button">Create</div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </Dialog>
         <div className="canvas-container">
           <h2>The shareable code is: {this.props.shareableCode}</h2>
           <VoiceRecorder />
