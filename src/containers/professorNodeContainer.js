@@ -3,7 +3,7 @@ import ProfessorQuestionsContainer from './professorQuestionsContainer'
 import axios from 'axios'
 import D3Nodes from '../components/d3nodes.js'
 import VoiceRecorder from '../components/VoiceRecorder'
-
+import Canvas from '../components/Canvas'
 
 export default class ProfessorNodeContainer extends React.Component {
   constructor(props) {
@@ -58,6 +58,7 @@ export default class ProfessorNodeContainer extends React.Component {
         <div className="canvas-container">
           this is the canvas container
           <VoiceRecorder />
+          <Canvas />
         </div>
       </div>
     )

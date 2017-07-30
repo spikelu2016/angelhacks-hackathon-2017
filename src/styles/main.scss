@@ -84,11 +84,13 @@ h4{
   width: 400px;
   float: left;
   height:100vh;
+
 }
 
-// .canvas-container{
-//   background-color: yellow
-// }
+.canvas-container{
+  float: left;
+  width: 50%;
+}
 
 #nav:target, nav.main-menu.expanded {
 width:300px;
@@ -170,15 +172,11 @@ font-size: 17px;
   font-size: 25px;
 }
 
-// .buttons {
-//   padding: 1rem;
-//   background: #f06d06;
-//   float: left;
-// }
+#drawingboard {
+    width: 100% !important;
+    height: 2000px;
+    background-color: white;
+    clear: both;
+    position:absolute;
 
-
-// .audioRecorderContainer {
-//   display: block;
-//   float: left;
-//   width: 400px;
-// }
+  }
