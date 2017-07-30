@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router'
+import axios from 'axios'
 
 const NODES_COLOR = '#88D8B0';
 const NODES_ON_HOVER_COLOR = '#00FF00';
@@ -105,7 +106,9 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
           .attr('fill', 'rgba(0,0,0,0)')
       })
       .on('click', function(d, i){
-        alert('you downvoted')
+        self.props.socket.emit('downvote', {
+          nodeId: d._id
+        });
       })
     lower_half_circle.exit().remove();
 
@@ -137,7 +140,9 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
           .attr('fill', 'rgba(0,0,0,0)')
       })
       .on('click', function(d, i){
-        alert('you upvoted')
+        self.props.socket.emit('upvote', {
+          nodeId: d._id
+        });
       })
     upper_half_circle.exit().remove();
 
@@ -214,7 +219,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     topic_name
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
-      .text(d=>d.description)
+      .text(d=>(d.description))
 
     topic_name.exit().remove();
 

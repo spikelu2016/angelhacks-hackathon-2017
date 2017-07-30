@@ -23,13 +23,46 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 io.on('connection', socket => {
+  console.log('client connected to socket');
+
+
   socket.on('newQuestion', (data) => {
     console.log('the server saw this')
     socket.broadcast.emit('newQuestionAdded', data)
     socket.emit('newQuestionAdded', data)
     // TODO: update the database
   })
+
+  socket.on('upvote', (data)=>{
+    console.log('received upvote from client');
+    Node.findById(data.nodeId, function(err, node){
+      node.upvotes = node.upvotes + 1;
+      node.save()
+      .then(function(newNode){
+        socket.emit('upvote', newNode._id)
+      })
+      .catch(function(err){
+        console.log('error', err);
+      })
+    })
+  })
+
+  socket.on('downvote', (data)=>{
+    console.log('received downvote from client');
+    Node.findById(data.nodeId, function(err, node){
+      node.downvotes = node.downvotes + 1;
+      node.save()
+      .then(function(newNode){
+        socket.emit('downvote', newNode._id)
+      })
+      .catch(function(err){
+        console.log('error', err);
+      })
+    })
+  })
 })
+
+
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -42,6 +75,20 @@ app.post('/addQuestion', function(req, res) {
   Node.findById(req.body.nodeId, function(err, node){
     console.log(node);
     node.questions.push(req.body.questionObj);
+    node.save()
+    .then(function(newNode){
+      console.log('savedClass', newNode);
+    })
+    .catch(function(err){
+      console.log('error', err);
+    })
+  })
+});
+
+app.post('/downvote', function(req, res) {
+  Node.findById(req.body.nodeId, function(err, node){
+    console.log(node);
+    node.upvotes = node.upvotes - 1;
     node.save()
     .then(function(newNode){
       console.log('savedClass', newNode);

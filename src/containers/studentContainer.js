@@ -23,6 +23,36 @@ export default class StudentContainer extends React.Component {
       this.socket.on('userLeft', () => {
         console.log('the user left')
       })
+
+      this.socket.on('upvote', (nodeId)=>{
+        console.log('received upvote back');
+        var newAllNodes = JSON.parse(JSON.stringify(this.state.allNodes));
+        console.log('newAllNodes before', newAllNodes);
+        newAllNodes.forEach((node, i)=>{
+          if(node._id === nodeId){
+            console.log('updated');
+            newAllNodes[i].upvotes++;
+          }
+        })
+        this.setState({
+          allNodes: newAllNodes
+        })
+      })
+
+      this.socket.on('downvote', (nodeId)=>{
+        console.log('received downvote back');
+        var newAllNodes = JSON.parse(JSON.stringify(this.state.allNodes));
+        console.log('newAllNodes before', newAllNodes);
+        newAllNodes.forEach((node, i)=>{
+          if(node._id === nodeId){
+            console.log('updated');
+            newAllNodes[i].downvotes++;
+          }
+        })
+        this.setState({
+          allNodes: newAllNodes
+        })
+      })
   }
 
   componentDidMount() {
@@ -43,6 +73,7 @@ export default class StudentContainer extends React.Component {
   render() {
     return (
       <div>
+        <ol>{this.state.allNodes.map(node=><li key={node._id}>{node.upvotes + ' ' + node.downvotes}</li>)}</ol>
         {this.state.hasLoaded ? <StudentNodeContainer socket={this.socket} allNodes={this.state.allNodes}/> : ""}
       </div>
     );
