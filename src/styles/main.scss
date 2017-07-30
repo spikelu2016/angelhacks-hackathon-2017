@@ -84,19 +84,26 @@ h4{
   width: 400px;
   float: left;
   height:100vh;
-  z-index: 9999;
-  border-style: solid;
   position: relative;
 }
 
 .canvas-container{
   position: absolute;
-  right: 18vh;
-  top: 0;
-  width: 600px;
-  height: 100vh;
-  overflow: scroll;
+  // right: 18vh;
+  // top: 0;
+  // width: 600px;
+  // height: 100vh;
+  // overflow: scroll;
+  // z-index: 0;
+  display: block;
   z-index: 0;
+  width: 700px;
+  height:100vh;
+  margin-left: 100px;
+  right: 15vh;
+  top: 0;
+  z-index: 0;
+  overflow: scroll;
 }
 
 #nav:target, nav.main-menu.expanded {
@@ -107,6 +114,8 @@ opacity:1;
 
 #nav {
 font-family: 'Source Sans Pro', sans-serif !important;
+z-index: 9999;
+position: relative;
 // font-weight: bold;
 // font-weight: bold;
 font-size: 18px;
@@ -188,4 +197,10 @@ font-size: 17px;
     height: 2000px;
     background-color: white;
     clear: both;
-  }
+}
+
+// #drawingboard {
+//     width: 100% !important;
+//     height: 1000px;
+//     background-color: white;
+//   }
