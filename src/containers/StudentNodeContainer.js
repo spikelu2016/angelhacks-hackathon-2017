@@ -2,6 +2,7 @@ import React from 'react'
 import StudentQuestionsContainer from './studentQuestionsContainer'
 import axios from 'axios'
 import D3Nodes from '../components/d3nodes.js'
+import RenderCanvas from '../components/RenderCanvas'
 
 export default class StudentNodeContainer extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class StudentNodeContainer extends React.Component {
       </div>
         <StudentQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
         <div className="canvas-container">
-          this is the canvas container
+          <RenderCanvas socket={this.props.socket} />
         </div>
       </div>
     )
