@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 io.on('connection', socket => {
   console.log('client connected to socket');
 
-
   socket.on('newQuestion', (data) => {
     console.log('the server saw this')
     socket.broadcast.emit('newQuestionAdded', data)
@@ -45,6 +44,18 @@ io.on('connection', socket => {
         console.log('error', err);
       })
     })
+  })
+
+  socket.on('startingCoordinates', (data)=> {
+    socket.broadcast.emit('startingCoordinates', data)
+  })
+
+  socket.on('endingCoordinate', ()=> {
+    socket.broadcast.emit('endingCoordinate')
+  })
+
+  socket.on('Coordinates', (data)=> {
+    socket.broadcast.emit('Coordinates', data)
   })
 
   socket.on('downvote', (data)=>{
@@ -85,6 +96,7 @@ app.post('/addQuestion', function(req, res) {
   })
 });
 
+
 app.post('/downvote', function(req, res) {
   Node.findById(req.body.nodeId, function(err, node){
     console.log(node);
@@ -97,6 +109,7 @@ app.post('/downvote', function(req, res) {
       console.log('error', err);
     })
   })
+
 });
 
 app.post('/getAllQuestions', function(req, res) {
