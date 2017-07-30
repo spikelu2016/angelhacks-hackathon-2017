@@ -12,7 +12,7 @@ const QUESTION_COUNT_COLOR = '#02a8f3';
 const TOPIC_RADIUS = 50;
 const SUBTOPIC_RADIUS = 25;
 
-const NODES_DISTANCE = 100;
+const NODES_DISTANCE = 150;
 
 const TOPIC_QUESTION_COUNT_RADIUS = 15;
 const SUBTOPIC_QUESTION_COUNT_RADIUS = 12;
@@ -26,7 +26,8 @@ export default class D3Nodes extends React.Component{
   // helper function needed in renderD3()
   renderD3Nodes(data){
     // renderD3s the topic nodes (the red/orange/green circles)
-    var nodes = canvas.selectAll('.node').data(data);
+    var self = this;
+    var nodes = this.svg.selectAll('.node').data(data);
     nodes.enter().append('circle')
       .attr('cx', TOPIC_RADIUS)
     nodes
@@ -44,7 +45,7 @@ export default class D3Nodes extends React.Component{
       })
       .on('mouseover', function(d, i){
         d3.select(this).attr({
-          fill: shadeColor(d3.select(this).attr('fill'), 0.3)
+          fill: self.shadeColor(d3.select(this).attr('fill'), 0.3)
         });
       })
       .on('mouseout', function(data, i){
@@ -66,7 +67,7 @@ export default class D3Nodes extends React.Component{
     nodes.exit().remove();
 
     // renderD3 questions count (blue circles on top right)
-    var questions_count = canvas.selectAll('.questions_count').data(data);
+    var questions_count = this.svg.selectAll('.questions_count').data(data);
     questions_count.enter().append('circle')
     questions_count
       .attr('class', 'questions_count')
@@ -80,27 +81,29 @@ export default class D3Nodes extends React.Component{
   // helper function needed in renderD3()
   renderD3Line(data){
     // renderD3s the gray line connecting all the nodes
-    var line = canvas.selectAll('line');
+    var line = this.svg.selectAll('line');
     line.attr('y2', TOPIC_RADIUS + (data.length - 1) * NODES_DISTANCE)
   }
 
   // helper function needed in renderD3()
   renderD3Text(data){
+    var self = this;
     // renderD3 description of topic next to the topic nodes
-    var topic_name = canvas.selectAll('.topic_name').data(data);
+    var topic_name = this.svg.selectAll('.topic_name').data(data);
     topic_name.enter().append('text')
       .attr('x', TOPIC_RADIUS*2 + 10) //50 is margin between text and node
     topic_name
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
       .text(d=>d.description)
-      .on('click', function(d){
+      .on('click', function(d, i){
+        self.props.nodeClicked(d,i);
         alert('You clicked on' + d.description);
       })
     topic_name.exit().remove();
 
     // renderD3s the white number that's showing the number of questions inside the blue circle
-    var question_number = canvas.selectAll('.question_number').data(data);
+    var question_number = this.svg.selectAll('.question_number').data(data);
     question_number.enter().append('text')
       .attr('fill', 'white');
     // for hardcoding the position of the number to be at the center of circle
@@ -115,6 +118,12 @@ export default class D3Nodes extends React.Component{
     question_number.exit().remove();
   }
 
+  renderD3(data){
+      this.renderD3Line(data);
+      this.renderD3Nodes(data);
+      this.renderD3Text(data);
+  }
+
   // function for lightening / darkening HEX color code
   // @param: color: #RRGGBB, percent: -1.0 to +1.0
   shadeColor(color, percent) {
@@ -127,27 +136,25 @@ export default class D3Nodes extends React.Component{
   }
 
   componentDidMount(){
-    var canvas = d3.select('body')
-      .append('svg')
+    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + TOPIC_RADIUS;
+    console.log(svg_height);
+    this.svg
       .attr('width', 400)
       .attr('height', 700)
 
-    var line = canvas.append('line')
+    var line = this.svg.append('line')
       .attr('x1', TOPIC_RADIUS)
       .attr('y1', TOPIC_RADIUS)
       .attr('x2', TOPIC_RADIUS)
       .attr('stroke', 'gray')
       .attr('stroke-width', '3')
 
-    this.setState({
-      canvas,
-      line
-    })
+    this.renderD3(this.props.allNodes);
   }
 
   render(){
     return(
-      <svg ref={(elem) => { this.svg = elem; }} />
+      <svg ref={(elem) => { this.svg = d3.select(elem); }} />
     )
   }
 }
