@@ -2,7 +2,7 @@ import React from 'react'
 import ProfessorQuestionsContainer from './professorQuestionsContainer'
 import axios from 'axios'
 import D3Nodes from '../components/d3nodes.js'
-import VoiceRecorder from '../components/VoiceRecorder'
+import VoiceRecorder from '../components/voiceRecorder'
 import Canvas from '../components/Canvas'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';

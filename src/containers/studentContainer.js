@@ -1,5 +1,5 @@
 import React from 'react'
-import StudentNodeContainer from './studentNodeContainer'
+import StudentNodeContainer from './StudentNodeContainer'
 import io from 'socket.io-client'
 import axios from 'axios'
 
