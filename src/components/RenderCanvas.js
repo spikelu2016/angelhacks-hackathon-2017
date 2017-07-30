@@ -44,7 +44,7 @@ export default class RenderCanvas extends React.Component {
   render() {
     return(
       <div>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" className="canvasScreen"></canvas>
       </div>
     )
   }

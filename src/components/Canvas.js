@@ -38,8 +38,7 @@ export default class Canvas extends React.Component {
   }
   render() {
     return (
-      <span id="drawingboard"></span>
-
+      <span id="drawingboard" className="canvasScreen"></span>
     )
   }
 }

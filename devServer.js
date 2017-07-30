@@ -96,6 +96,7 @@ app.post('/addQuestion', function(req, res) {
   })
 });
 
+
 app.post('/downvote', function(req, res) {
   Node.findById(req.body.nodeId, function(err, node){
     console.log(node);
@@ -108,6 +109,7 @@ app.post('/downvote', function(req, res) {
       console.log('error', err);
     })
   })
+
 });
 
 app.post('/getAllQuestions', function(req, res) {
