@@ -52,6 +52,15 @@ h4{
   position: relative;
   right: 215px;
 }
+
+.card-panel-question{
+  height: 100%;
+  width: 286px;
+  margin: 0;
+  padding: 5px 10px;
+  margin: 7px;
+}
+
 .student-card{
   margin-left: 50%;
 }
@@ -75,7 +84,6 @@ h4{
 
 #nav:target, nav.main-menu.expanded {
 width:300px;
-// overflow:hidden;
 overflow-y: scroll;
 opacity:1;
 }
@@ -125,12 +133,8 @@ border-bottom:1px solid #f2f2f2;
     display: block;
 }
 
-.ask-question-form{
-  width: 300px;
-}
-textarea{
-padding-top: 30px !important;
-line-height: 140% !important;
+input{
+color: black;
 }
 
 ::-webkit-scrollbar {
