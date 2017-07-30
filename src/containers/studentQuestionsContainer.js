@@ -48,7 +48,7 @@ export default class StudentQuestionsContainer extends React.Component {
         <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn askButton">Ask!</a>
 
       </li>
-      {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question}/>)}
+      {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question} username={question.username}/>)}
 </ul>
 </nav>
 </div>

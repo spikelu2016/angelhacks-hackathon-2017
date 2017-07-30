@@ -8,7 +8,7 @@ export default class Question extends React.Component {
   render() {
     return(
       <li className="liBorder">
-        <span className="nav-text">{this.props.index+1}) {this.props.question}</span>
+        <span className="nav-text">{this.props.username}: {this.props.question}</span>
       </li>
     )
   }
