@@ -219,7 +219,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     topic_name
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
-      .text(d=>(d.description))
+      .text(d=>(`${d.description} ${d.upvotes} ${d.downvotes}`))
 
     topic_name.exit().remove();
 
@@ -274,8 +274,13 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
   }
 
-  shouldComponentUpdate() {
-    return false; // This prevents future re-renders of this component
+  // shouldComponentUpdate() {
+  //   return false; // This prevents future re-renders of this component
+  // }
+
+  componentDidUpdate(){
+    console.log('did update');
+    this.renderD3(this.props.allNodes);
   }
 
   componentDidMount(){
