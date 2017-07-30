@@ -18,6 +18,7 @@ export default class StudentQuestionsContainer extends React.Component {
 
   askQuestionClicked(e) {
     e.preventDefault();
+    if(this.state.newQuestion === "") return
     const nodeId = this.props.nodeId;
     const username = 'spike';
     const topic = this.props.topic;
@@ -38,11 +39,14 @@ export default class StudentQuestionsContainer extends React.Component {
     <a href="#" className="untarget"><i className="large material-icons center ">keyboard_arrow_left</i></a>
     <ul>
       <li>
-        <div className="input-field ask-question-form">
-          <textarea id="questionInput" className="materialize-textarea" onChange={(e) => this.updateQuestion(e)}></textarea>
-          <label htmlFor="questionInput" data-error="wrong" data-success="right">Ask a question...</label>
+        <div className="card-row-1 card-panel   white  card-panel-question">
+          <div className="input-field ask-question-form">
+            <input id="questionInput" type="text" class="validate" placeholder="Ask a new question..." onChange={(e) => this.updateQuestion(e)}/>
         </div>
-        <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn">Ask!</a>
+
+        </div>
+        <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn askButton">Ask!</a>
+
       </li>
       {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question}/>)}
 </ul>
