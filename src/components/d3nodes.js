@@ -9,7 +9,7 @@ const DANGER_COLOR = '#EF623B';
 
 const WARNING_COLOR = '#F8C633';
 // const NEUTRAL_COLOR = '#88D8B0';
-const NEUTRAL_COLOR = '#80DEEA';
+const NEUTRAL_COLOR = '#26A69A';
 
 const QUESTION_COUNT_COLOR = '#02a8f3';
 
@@ -35,11 +35,13 @@ export default class D3Nodes extends React.Component{
     var nodes = this.svg.selectAll('.node').data(data);
     nodes.enter().append('circle')
       .attr('cx', TOPIC_RADIUS)
+      .attr('stroke-width', '5')
+      .attr('fill', 'white')
     nodes
       .attr('class', 'node')
       .attr('cy', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
       .attr('r', (data) => (data.type==='TOPIC' ? TOPIC_RADIUS : SUBTOPIC_RADIUS))
-      .attr('fill', (data) => {
+      .attr('stroke', (data) => { //changed from fill
         if(data.upvotes >= data.downvotes){
           return NEUTRAL_COLOR;
         } else if(data.downvotes - data.upvotes < 5){
@@ -48,24 +50,24 @@ export default class D3Nodes extends React.Component{
           return DANGER_COLOR;
         }
       })
-      .on('mouseover', function(d, i){
-        d3.select(this).attr({
-          fill: self.shadeColor(d3.select(this).attr('fill'), 0.3)
-        });
-      })
-      .on('mouseout', function(data, i){
-        var temp;
-        if(data.upvotes >= data.downvotes){
-          temp = NEUTRAL_COLOR;
-        } else if(data.downvotes - data.upvotes < 5){
-          temp = WARNING_COLOR;
-        } else {
-          temp = DANGER_COLOR;
-        }
-        d3.select(this).attr({
-          fill: temp
-        });
-      })
+      // .on('mouseover', function(d, i){
+      //   d3.select(this).attr({
+      //     fill: self.shadeColor(d3.select(this).attr('fill'), 0.3)
+      //   });
+      // })
+      // .on('mouseout', function(data, i){
+      //   var temp;
+      //   if(data.upvotes >= data.downvotes){
+      //     temp = NEUTRAL_COLOR;
+      //   } else if(data.downvotes - data.upvotes < 5){
+      //     temp = WARNING_COLOR;
+      //   } else {
+      //     temp = DANGER_COLOR;
+      //   }
+      //   d3.select(this).attr({
+      //     fill: temp
+      //   });
+      // })
       .on('click', function(d, i){
         alert('You clicked on node no.' + i);
       })
@@ -96,7 +98,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
       })
       .on('mouseover', function(d, i){
         d3.select(this)
-          .attr('fill', 'rgba(255,255,255,0.2)')
+          .attr('fill', 'rgba(255,255,255,0.5)')
       })
       .on('mouseout', function(d, i){
         d3.select(this)
@@ -127,7 +129,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
       .on('mouseover', function(d, i){
         d3.select(this)
           // .attr('fill', 'rgba(255,255,255,0.7)')
-          .attr('fill', 'rgba(255,255,255,0.2)')
+          .attr('fill', 'rgba(255,255,255,0.5)')
       })
       .on('mouseout', function(d, i){
         d3.select(this)
