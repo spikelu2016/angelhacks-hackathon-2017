@@ -55,7 +55,6 @@ export default class StudentQuestionsContainer extends React.Component {
       </li>
       {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question} username={question.username}/>)}
       <li><span id="anchor"></span></li>
-      <button></button>
 </ul>
 </nav>
 </div>
