@@ -23,6 +23,7 @@ const TOPIC_QUESTION_COUNT_RADIUS = 15;
 const SUBTOPIC_QUESTION_COUNT_RADIUS = 12;
 
 const X_OFFSET = 5;
+const Y_OFFSET = 5;
 
 export default class D3Nodes extends React.Component{
   constructor(){
@@ -42,7 +43,7 @@ export default class D3Nodes extends React.Component{
       .attr('fill', 'white')
     nodes
       .attr('class', 'node')
-      .attr('cy', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
+      .attr('cy', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + Y_OFFSET))
       .attr('r', (data) => (data.type==='TOPIC' ? TOPIC_RADIUS : SUBTOPIC_RADIUS))
       .attr('stroke', (data) => { //changed from fill
         if(data.upvotes >= data.downvotes){
@@ -73,7 +74,7 @@ export default class D3Nodes extends React.Component{
             start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
             end_x = 50
           }
-          return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0 Z';
+          return 'M' + String(start_x + X_OFFSET) + ',' + String(Y_OFFSET + 50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0 Z';
         })
         .on('mouseover', function(d, i){
           d3.select(this)
@@ -105,7 +106,7 @@ export default class D3Nodes extends React.Component{
             start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
             end_x = 50
           }
-          return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0 Z';
+          return 'M' + String(start_x + X_OFFSET) + ',' + String(Y_OFFSET + 50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0 Z';
         })
         .on('mouseover', function(d, i){
           d3.select(this)
@@ -133,7 +134,7 @@ export default class D3Nodes extends React.Component{
       .attr('class', 'questions_count')
       .attr('r', (data) => (data.type==='TOPIC' ? TOPIC_QUESTION_COUNT_RADIUS : SUBTOPIC_QUESTION_COUNT_RADIUS))
       .attr('cx', (data) => (data.type==='TOPIC' ? (TOPIC_RADIUS + Math.cos(Math.PI/4) * TOPIC_RADIUS + X_OFFSET) : (TOPIC_RADIUS + Math.cos(Math.PI/4) * SUBTOPIC_RADIUS + X_OFFSET)))
-      .attr('cy', (data, i) => (data.type==='TOPIC' ? (TOPIC_RADIUS + i * NODES_DISTANCE - Math.cos(Math.PI/4) * TOPIC_RADIUS) : (TOPIC_RADIUS + i * NODES_DISTANCE - Math.sin(Math.PI/4)  * SUBTOPIC_RADIUS)))
+      .attr('cy', (data, i) => (data.type==='TOPIC' ? (Y_OFFSET + TOPIC_RADIUS + i * NODES_DISTANCE - Math.cos(Math.PI/4) * TOPIC_RADIUS) : (Y_OFFSET + TOPIC_RADIUS + i * NODES_DISTANCE - Math.sin(Math.PI/4)  * SUBTOPIC_RADIUS)))
       .attr('fill', (data) => (data.questions.length===0 ? 'none' : QUESTION_COUNT_COLOR))
 
     questions_count.exit().remove();
@@ -150,12 +151,12 @@ export default class D3Nodes extends React.Component{
       up_arrow
         .attr('transform', (d,i)=>{
           var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
-          var y_translate = TOPIC_RADIUS + 150 * i - 23;
+          var y_translate = TOPIC_RADIUS + 150 * i - 23 + Y_OFFSET;
           var scale = 2;
           if(d.type==='SUBTOPIC'){
             scale = 1.3;
               x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
-              y_translate = TOPIC_RADIUS + 150 * i - 12;
+              y_translate = TOPIC_RADIUS + 150 * i - 12 + Y_OFFSET;
           }
 
           return `translate(${x_translate},${y_translate}) scale(${scale})`
@@ -172,12 +173,12 @@ export default class D3Nodes extends React.Component{
         down_arrow
           .attr('transform', (d,i)=>{
             var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
-            var y_translate = TOPIC_RADIUS + 150 * i + 10;
+            var y_translate = TOPIC_RADIUS + 150 * i + 10 + Y_OFFSET;
             var scale = 2;
             if(d.type==='SUBTOPIC'){
               scale = 1.3;
                 x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
-                y_translate = TOPIC_RADIUS + 150 * i + 5;
+                y_translate = TOPIC_RADIUS + 150 * i + 5 + Y_OFFSET;
             }
             return `translate(${x_translate},${y_translate}) scale(${scale})`
           })
@@ -201,7 +202,7 @@ export default class D3Nodes extends React.Component{
       .attr('x', TOPIC_RADIUS*2 + 10 + X_OFFSET) //50 is margin between text and node
     topic_name
       .attr('class', 'topic_name')
-      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
+      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + Y_OFFSET))
       .text(d=>(`${d.description}`))
 
     topic_name.exit().remove();
@@ -212,7 +213,7 @@ export default class D3Nodes extends React.Component{
       .attr('fill', 'gray')
     votes
       .attr('class', 'votes')
-      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + 25))
+      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + 25 + Y_OFFSET))
       .text(d=>(`I got it: ${d.upvotes} I don't understand: ${d.downvotes}`))
 
     votes.exit().remove();
@@ -223,7 +224,7 @@ export default class D3Nodes extends React.Component{
       .attr('fill', 'white');
     // for hardcoding the position of the number to be at the center of circle
     var x_offset = 0 + X_OFFSET;
-    var y_offset = 5;
+    var y_offset = 5 + Y_OFFSET;
     question_number
       .attr('class', 'question_number')
       .attr('x', (data) => (data.type==='TOPIC' ? (TOPIC_RADIUS + Math.cos(Math.PI/4) * TOPIC_RADIUS + x_offset) : (TOPIC_RADIUS + Math.cos(Math.PI/4) * SUBTOPIC_RADIUS + x_offset)))
@@ -271,7 +272,7 @@ export default class D3Nodes extends React.Component{
   }
 
   componentDidMount(){
-    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + 2 * TOPIC_RADIUS + 5;
+    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + 2 * TOPIC_RADIUS + 5 + Y_OFFSET;
     this.svg
       .attr('width', 400)
       .attr('height', svg_height)
