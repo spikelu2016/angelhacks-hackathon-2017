@@ -18,7 +18,7 @@ export default class ProfessorCard extends React.Component {
   render() {
     return (
       <div onClick={() => this.redirectToProfessor()}>
-        {this.state.shouldRedirect ? <Redirect to="/professor"/> : ""}
+        {this.state.shouldRedirect ? <Redirect to="/professorsignup"/> : ""}
         <div className="card-row-1 card-panel card-panel-login hoverable">
       <div className="card-image">
         <img id="doc-pic" src="https://d30y9cdsu7xlg0.cloudfront.net/png/44224-200.png"/>

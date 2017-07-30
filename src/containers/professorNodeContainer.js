@@ -56,6 +56,7 @@ export default class ProfessorNodeContainer extends React.Component {
       </div>
         <ProfessorQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
         <div className="canvas-container">
+          <h2>The shareable code is: {this.props.shareableCode}</h2>
           <VoiceRecorder />
           <Canvas socket={this.props.socket}/>
         </div>

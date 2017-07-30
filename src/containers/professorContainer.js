@@ -43,7 +43,7 @@ export default class ProfessorContainer extends React.Component {
   render() {
     return (
       <div>
-        {this.state.hasLoaded ? <ProfessorNodeContainer socket={this.socket} allNodes={this.state.allNodes}/> : ""}
+        {this.state.hasLoaded ? <ProfessorNodeContainer shareableCode={this.props.match.params.shareableCode} socket={this.socket} allNodes={this.state.allNodes}/> : ""}
       </div>
     );
   }

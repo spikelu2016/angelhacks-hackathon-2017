@@ -18,7 +18,7 @@ export default class StudentCard extends React.Component {
   render() {
     return (
       <div onClick={() => this.redirectToStudent()}>
-        {this.state.shouldRedirect ? <Redirect to="/student"/> : ""}
+        {this.state.shouldRedirect ? <Redirect to="/studentSignup"/> : ""}
         <div className="card-row-1 student-card card-panel-login card-panel  hoverable">
       <div className="card-image">
         <img id="doc-pic" src="https://d30y9cdsu7xlg0.cloudfront.net/png/35778-200.png"/>
