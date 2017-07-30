@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router'
 
 const NODES_COLOR = '#88D8B0';
 const NODES_ON_HOVER_COLOR = '#00FF00';
@@ -20,7 +21,8 @@ const SUBTOPIC_QUESTION_COUNT_RADIUS = 12;
 export default class D3Nodes extends React.Component{
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+    };
   }
 
   // helper function needed in renderD3()
@@ -88,7 +90,7 @@ export default class D3Nodes extends React.Component{
   // helper function needed in renderD3()
   renderD3Text(data){
     var self = this;
-    // renderD3 description of topic next to the topic nodes
+    //renderD3 description of topic next to the topic nodes
     var topic_name = this.svg.selectAll('.topic_name').data(data);
     topic_name.enter().append('text')
       .attr('x', TOPIC_RADIUS*2 + 10) //50 is margin between text and node
@@ -96,10 +98,10 @@ export default class D3Nodes extends React.Component{
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
       .text(d=>d.description)
-      .on('click', function(d, i){
-        self.props.nodeClicked(d,i);
-        alert('You clicked on' + d.description);
-      })
+      // .on('click', function(d, i){
+      //   alert('You clicked on' + d.description);
+      // })
+
     topic_name.exit().remove();
 
     // renderD3s the white number that's showing the number of questions inside the blue circle
@@ -116,6 +118,28 @@ export default class D3Nodes extends React.Component{
       .attr('text-anchor', 'middle')
       .text(data=>(data.questions.length===0 ? '' : data.questions.length))
     question_number.exit().remove();
+
+    // draw transparent rectangle on top of text for links
+    var links = this.svg.selectAll('.links').data(data);
+
+    links.enter().append('a')
+      .attr('xlink:href', '#nav')
+
+    var y_offset = -25;
+
+    links
+      .append("rect")
+      .attr('x', TOPIC_RADIUS*2 + 10)
+      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + y_offset))
+      .attr('fill', 'rgba(0,0,0,0)')
+      .attr('width', '390')
+      .attr('height', '40')
+      .on('click', function(d, i){
+        // alert('You clicked on' + d.description);
+        self.props.nodeClicked(d,i);
+      })
+
+    links.exit().remove();
   }
 
   renderD3(data){
@@ -136,11 +160,10 @@ export default class D3Nodes extends React.Component{
   }
 
   componentDidMount(){
-    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + TOPIC_RADIUS;
-    console.log(svg_height);
+    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + 2 * TOPIC_RADIUS;
     this.svg
       .attr('width', 400)
-      .attr('height', 700)
+      .attr('height', svg_height)
 
     var line = this.svg.append('line')
       .attr('x1', TOPIC_RADIUS)
@@ -154,7 +177,7 @@ export default class D3Nodes extends React.Component{
 
   render(){
     return(
-      <svg ref={(elem) => { this.svg = d3.select(elem); }} />
+        <svg ref={(elem) => { this.svg = d3.select(elem); }} />
     )
   }
 }
