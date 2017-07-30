@@ -202,9 +202,20 @@ export default class D3Nodes extends React.Component{
     topic_name
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
-      .text(d=>(`${d.description} ${d.upvotes} ${d.downvotes}`))
+      .text(d=>(`${d.description}`))
 
     topic_name.exit().remove();
+
+    var votes = this.svg.selectAll('.votes').data(data);
+    votes.enter().append('text')
+      .attr('x', TOPIC_RADIUS*2 + 10 + X_OFFSET) //50 is margin between text and node
+      .attr('fill', 'gray')
+    votes
+      .attr('class', 'votes')
+      .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE + 25))
+      .text(d=>(`I got it: ${d.upvotes} I don't understand: ${d.downvotes}`))
+
+    votes.exit().remove();
 
     // renderD3s the white number that's showing the number of questions inside the blue circle
     var question_number = this.svg.selectAll('.question_number').data(data);
