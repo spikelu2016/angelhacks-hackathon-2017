@@ -1,6 +1,7 @@
 import React from 'react'
 import StudentQuestionsContainer from './studentQuestionsContainer'
 import axios from 'axios'
+import D3Nodes from '../components/d3nodes.js'
 
 export default class StudentNodeContainer extends React.Component {
   constructor(props) {
@@ -43,18 +44,21 @@ export default class StudentNodeContainer extends React.Component {
   }
 
   render() {
+    console.log('this.props.allNodes', this.props.allNodes);
     return(
       <div>
         <div className="node-container">
+
           <div className="card-row-1 student-card card-panel  white  card-panel-node">
-        {this.props.allNodes.map((item, index) => (
-          <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))}
-        </div>
+            {/* {this.props.allNodes.map((item, index) => (
+              <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))} */}
+              <D3Nodes allNodes={this.props.allNodes} nodeClicked={(item, index)=>this.nodeClicked(item.description, index, item._id)} />
+          </div>
       </div>
         <StudentQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
         <div className="canvas-container">
-                  this is the canvas container
-                </div>
+          this is the canvas container
+        </div>
       </div>
     )
   }
