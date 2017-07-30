@@ -17,7 +17,7 @@ const io = require('socket.io')(server)
 
 
 // const host = 'http://localhost';
-const host = 'https://peaceful-earth-73088.herokuapp.com/';
+const host = 'https://peaceful-earth-73088.herokuapp.com';
 // const port = process.env.npm_config_port ? process.env.npm_config_port : 3000;
 const port = process.env.PORT || 3000;
 
