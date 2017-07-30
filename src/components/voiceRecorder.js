@@ -24,37 +24,31 @@ export default class VoiceRecorder extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.startRecording()
+  }
+
   onStop(recordedBlob) {
     console.log(recordedBlob.blob);
     axios.put('http://localhost:3000/saveAudioFiles', {blob: recordedBlob})
     .then((resp) => {
       console.log('got to the then');
     });
-    // console.log('recordedBlob is: ', recordedBlob.blob);
-    // console.log('type of recordedblob is:', typeof recordedBlob);
-    // const a = document.createElement('a');
-    // a.style = 'display: none';
-    // document.body.appendChild(a);
-    // var url = recordedBlob.blobURL;
-    // a.href = url;
-    // a.download = 'hohohohoho.wav';
-    // a.click();
-    // window.URL.revokeObjectURL(url);
-    // document.body.removeChild(a);
+
   }
 
 
   render() {
     return (
       <div>
-        <ReactMic
+        <ReactMic id="mic"
           record={this.state.record}
           className="sound-wave"
           onStop={this.onStop}
           strokeColor="#000000"
-          backgroundColor="#FF4081" />
-        <button className="btn" onClick={() => this.startRecording()} type="button">Start</button>
-        <button className="btn" onClick={() => this.stopRecording()} type="button">Stop</button>
+          backgroundColor="#F8F8F9"/>
+        {/* <button className="btn" onClick={() => this.startRecording()} type="button">Start</button> */}
+        {/* <button className="btn" onClick={() => this.stopRecording()} type="button">Stop</button> */}
       </div>
     );
   }

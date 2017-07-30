@@ -57,6 +57,14 @@ export default class ProfessorNodeContainer extends React.Component {
   }
 
   render() {
+    const actions = [
+     <FlatButton
+       label="Close"
+       primary={true}
+       keyboardFocused={true}
+       onClick={() => this.handleClose()}
+     />,
+   ];
     return(
       <div>
         <div className="node-container">
@@ -68,10 +76,19 @@ export default class ProfessorNodeContainer extends React.Component {
           </div>
       </div>
         <ProfessorQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
+
         <div className="canvas-container">
-          <h2>The shareable code is: {this.props.shareableCode}</h2>
           <VoiceRecorder />
           <Canvas socket={this.props.socket}/>
+          <RaisedButton id="getCode" label="Get Code" onClick={()=>this.handleOpen()} />
+        <Dialog
+          title=""
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={()=>this.handleClose()}
+        >
+          <h2>The shareable code is: {this.props.shareableCode}</h2></Dialog>
         </div>
       </div>
     )

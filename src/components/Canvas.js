@@ -8,7 +8,7 @@ export default class Canvas extends React.Component {
   componentDidMount(){
     var self = this;
     var isActive = false;
-    var myBoard = new DrawingBoard.Board('drawingboard');
+    var myBoard = new DrawingBoard.Board('drawingboard', {controls:[{Navigation:{reset:true}}]});
 
     setTimeout(function(){
       myBoard.ev.bind('board:startDrawing', function(e){draw(e.coords.x,e.coords.y,'startdrawing')});
