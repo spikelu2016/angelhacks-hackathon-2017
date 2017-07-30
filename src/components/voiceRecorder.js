@@ -53,8 +53,8 @@ export default class VoiceRecorder extends React.Component {
           onStop={this.onStop}
           strokeColor="#000000"
           backgroundColor="#FF4081" />
-        <button onClick={() => this.startRecording()} type="button">Start</button>
-        <button onClick={() => this.stopRecording()} type="button">Stop</button>
+        <button className="btn" onClick={() => this.startRecording()} type="button">Start</button>
+        <button className="btn" onClick={() => this.stopRecording()} type="button">Stop</button>
       </div>
     );
   }

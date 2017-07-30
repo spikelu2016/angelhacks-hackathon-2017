@@ -73,7 +73,6 @@ export default class StudentContainer extends React.Component {
   render() {
     return (
       <div>
-        <ol>{this.state.allNodes.map(node=><li key={node._id}>{node.upvotes + ' ' + node.downvotes}</li>)}</ol>
         {this.state.hasLoaded ? <StudentNodeContainer socket={this.socket} allNodes={this.state.allNodes}/> : ""}
       </div>
     );

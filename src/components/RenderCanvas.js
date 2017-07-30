@@ -14,17 +14,27 @@ export default class RenderCanvas extends React.Component {
 
     //setup socket connections
     self.props.socket.on('startingCoordinates', (data)=> {
-      startDraw(data)
+      startDraw(transformData(data))
     })
 
     self.props.socket.on('Coordinates', (data)=> {
       console.log('It was also called on teh client: ', data)
-      draw(data)
+      draw(transformData(data))
     })
 
     self.props.socket.on('endingCoordinate', ()=> {
       close()
     })
+
+    function transformData(point) {
+      const newX = point.x;
+      const newY = point.y;
+      const newPoint = {
+        x: newX,
+        y: newY
+      }
+      return newPoint
+    }
 
     function startDraw(point) {
       ctx.beginPath();

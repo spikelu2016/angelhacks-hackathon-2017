@@ -193,8 +193,8 @@ font-size: 17px;
 }
 
 .canvasScreen {
-    width: 600px;
-    height: 2000px;
+    width: 600px !important;
+    height: 2000px !important;
     background-color: white;
     clear: both;
 }
