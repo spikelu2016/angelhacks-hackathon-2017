@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Bellefair');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 npm body{
   background-color: #EEEEEE;
@@ -60,6 +60,13 @@ h4{
   padding: 5px 10px;
   margin: 7px;
 }
+.card-panel-question-posted{
+  height: 100%;
+  width: 286px;
+  margin: 0;
+  padding: 10px 10px;
+  margin: 4px 7px;
+}
 
 .student-card{
   margin-left: 50%;
@@ -89,7 +96,9 @@ opacity:1;
 }
 
 #nav {
-font-family: 'Bellefair', serif !important;
+font-family: 'Source Sans Pro', sans-serif !important;
+// font-weight: bold;
+// font-weight: bold;
 font-size: 18px;
 line-height: 150% !important;
 background: #80deea;
@@ -106,19 +115,19 @@ box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
 }
 
 
-.main-menu .liBorder {
-  padding: 15px 10px;
-}
+// .main-menu .liBorder {
+//   padding: 15px 10px;
+// }
 
-.main-menu .liBorder {
-width:300px;
-display:table;
-border-top:1px solid #f2f2f2;
-}
-
-.main-menu .liBorder:last-child {
-border-bottom:1px solid #f2f2f2;
-}
+// .main-menu .liBorder {
+// width:300px;
+// display:table;
+// border-top:1px solid #f2f2f2;
+// }
+//
+// .main-menu .liBorder:last-child {
+// border-bottom:1px solid #f2f2f2;
+// }
 
 .untarget {
   background-color:#00bbbb;
@@ -130,8 +139,9 @@ border-bottom:1px solid #f2f2f2;
     display: block;
 }
 
-input{
+#questionInput{
 color: black;
+font-size: 17px;
 }
 
 ::-webkit-scrollbar {
@@ -143,5 +153,9 @@ color: black;
   width: 286px;
   margin-left: 7px !important;
   margin-bottom: 10px;
-  margin-top: 3px !important; 
+  margin-top: 3px !important;
+}
+.nav-text{
+  color: #242424 !important;
+  // color: white !important;
 }
