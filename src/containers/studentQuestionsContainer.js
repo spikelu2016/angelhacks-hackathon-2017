@@ -29,6 +29,9 @@ export default class StudentQuestionsContainer extends React.Component {
       console.log('got to the then');
     });
     this.props.socket.emit('newQuestion', {username: username, topic: topic, question: question})
+    this.setState({
+      newQuestion: ""
+    })
   }
 
   render() {
@@ -41,7 +44,7 @@ export default class StudentQuestionsContainer extends React.Component {
       <li>
         <div className="card-row-1 card-panel   white  card-panel-question">
           <div className="input-field ask-question-form">
-            <input id="questionInput" type="text" class="validate" placeholder="Ask a new question..." onChange={(e) => this.updateQuestion(e)}/>
+            <input value={this.state.newQuestion} id="questionInput" type="text" class="validate" placeholder="Ask a new question..." onChange={(e) => this.updateQuestion(e)}/>
         </div>
 
         </div>
