@@ -87,7 +87,8 @@ h4{
 }
 
 .canvas-container{
-  background-color: yellow
+  float: left;
+  width: 50%;
 }
 
 #nav:target, nav.main-menu.expanded {
@@ -163,3 +164,12 @@ font-size: 17px;
 .topic_name{
 font-size: 25px;
 }
+
+#drawingboard {
+    width: 100% !important;
+    height: 100vh;
+    background-color: white;
+    clear: both;
+    position:absolute;
+
+  }

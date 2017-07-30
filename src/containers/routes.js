@@ -13,7 +13,7 @@ export default class Routes extends React.Component {
     return(
       <div>
         <Switch>
-              <Route path="/" exact={true} component={LoginContainer}/>
+              <Route path="/" exact={true} component={ProfessorContainer}/>
               <Route path="/professor" component={ProfessorContainer}/>
               <Route path="/student" component={StudentContainer}/>
         </Switch>
