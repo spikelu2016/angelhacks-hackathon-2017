@@ -52,7 +52,7 @@ export default class StudentNodeContainer extends React.Component {
           <div className="card-row-1 student-card card-panel  white  card-panel-node">
             {/* {this.props.allNodes.map((item, index) => (
               <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))} */}
-              <D3Nodes socket={this.props.socket} allNodes={this.props.allNodes} nodeClicked={(item, index)=>this.nodeClicked(item.description, index, item._id)} />
+              <D3Nodes socket={this.props.socket} allNodes={this.props.allNodes} nodeClicked={(item, index)=>this.nodeClicked(item.description, index, item._id)} studentView={true} />
           </div>
       </div>
         <StudentQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>

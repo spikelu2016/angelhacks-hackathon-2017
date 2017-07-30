@@ -57,71 +57,73 @@ export default class D3Nodes extends React.Component{
         alert('You clicked on node no.' + i);
       })
     nodes.exit().remove();
+    if(this.props.studentView){
+      console.log('hit this');
+      // render top half of circle for upvoting
+      var lower_half_circle = this.svg.selectAll('.lower_half_circle').data(data);
 
-    // render top half of circle for upvoting
-    var lower_half_circle = this.svg.selectAll('.lower_half_circle').data(data);
+      lower_half_circle.enter().append('path')
+        .attr('fill', 'rgba(0,0,0,0)')
 
-    lower_half_circle.enter().append('path')
-      .attr('fill', 'rgba(0,0,0,0)')
+      lower_half_circle
+        .attr('d', (data, i) => {
+          var start_x = 0
+          var end_x = 100;
+          if(data.type==='SUBTOPIC'){
+            start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
+            end_x = 50
+          }
+          return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0 Z';
+        })
+        .on('mouseover', function(d, i){
+          d3.select(this)
+            .attr('fill', 'rgba(239, 98, 59, 0.5)')
+        })
+        .on('mouseout', function(d, i){
+          d3.select(this)
+            .attr('fill', 'rgba(0,0,0,0)')
+        })
+        .on('click', function(d, i){
+          self.props.socket.emit('downvote', {
+            nodeId: d._id
+          });
+        })
+      lower_half_circle.exit().remove();
 
-    lower_half_circle
-      .attr('d', (data, i) => {
-        var start_x = 0
-        var end_x = 100;
-        if(data.type==='SUBTOPIC'){
-          start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
-          end_x = 50
-        }
-        return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0 Z';
-      })
-      .on('mouseover', function(d, i){
-        d3.select(this)
-          .attr('fill', 'rgba(239, 98, 59, 0.5)')
-      })
-      .on('mouseout', function(d, i){
-        d3.select(this)
-          .attr('fill', 'rgba(0,0,0,0)')
-      })
-      .on('click', function(d, i){
-        self.props.socket.emit('downvote', {
-          nodeId: d._id
-        });
-      })
-    lower_half_circle.exit().remove();
+      // UPPER HALF CIRCLE
+      var upper_half_circle = this.svg.selectAll('.upper_half_circle').data(data);
 
-    // UPPER HALF CIRCLE
-    var upper_half_circle = this.svg.selectAll('.upper_half_circle').data(data);
+      upper_half_circle.enter().append('path')
+        // .attr('fill', 'rgba(255,255,255,0.5)')
+        .attr('fill', 'rgba(0,0,0,0)')
 
-    upper_half_circle.enter().append('path')
-      // .attr('fill', 'rgba(255,255,255,0.5)')
-      .attr('fill', 'rgba(0,0,0,0)')
-
-    upper_half_circle
-      .attr('d', (data, i) => {
-        var start_x = 0
-        var end_x = 100;
-        if(data.type==='SUBTOPIC'){
-          start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
-          end_x = 50
-        }
-        return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0 Z';
-      })
-      .on('mouseover', function(d, i){
-        d3.select(this)
-          // .attr('fill', 'rgba(255,255,255,0.7)')
-          .attr('fill', 'rgba(38, 166, 154, 0.5)')
-      })
-      .on('mouseout', function(d, i){
-        d3.select(this)
-          // .attr('fill', 'rgba(255,255,255,0.5)')
-          .attr('fill', 'rgba(0,0,0,0)')
-      })
-      .on('click', function(d, i){
-        self.props.socket.emit('upvote', {
-          nodeId: d._id
-        });
-      })
-    upper_half_circle.exit().remove();
+      upper_half_circle
+        .attr('d', (data, i) => {
+          var start_x = 0
+          var end_x = 100;
+          if(data.type==='SUBTOPIC'){
+            start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
+            end_x = 50
+          }
+          return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0 Z';
+        })
+        .on('mouseover', function(d, i){
+          d3.select(this)
+            // .attr('fill', 'rgba(255,255,255,0.7)')
+            .attr('fill', 'rgba(38, 166, 154, 0.5)')
+        })
+        .on('mouseout', function(d, i){
+          d3.select(this)
+            // .attr('fill', 'rgba(255,255,255,0.5)')
+            .attr('fill', 'rgba(0,0,0,0)')
+        })
+        .on('click', function(d, i){
+          self.props.socket.emit('upvote', {
+            nodeId: d._id
+          });
+        })
+      upper_half_circle.exit().remove();
+    }
 
     // renderD3 questions count (blue circles on top right)
     var questions_count = this.svg.selectAll('.questions_count').data(data);
@@ -135,50 +137,52 @@ export default class D3Nodes extends React.Component{
       .attr('fill', (data) => (data.questions.length===0 ? 'none' : QUESTION_COUNT_COLOR))
 
     questions_count.exit().remove();
-
-    // render up arrow
-    var up_arrow = this.svg.selectAll('.up_arrow').data(data);
-    up_arrow.enter().append('path')
-      .attr('d', `M11.4,5.4L6,0C5.9-0.1,5.8-0.1,5.8-0.1c-0.1,0-0.2,0-0.2,0.1
-        L0.1,5.4C0,5.6,0,5.7,0.1,5.9l0.4,0.4c0.1,0.1,0.3,0.1,0.4,0l4.8-4.8l4.8,4.8c0.1,0.1,0.3,0.1,0.4,0l0.4-0.4
-        C11.5,5.7,11.5,5.6,11.4,5.4z`)
-      .attr('fill', 'gray')
-      .attr('pointer-events', 'none')
-
-    up_arrow
-      .attr('transform', (d,i)=>{
-        var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
-        var y_translate = TOPIC_RADIUS + 150 * i - 23;
-        var scale = 2;
-        if(d.type==='SUBTOPIC'){
-          scale = 1.3;
-            x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
-            y_translate = TOPIC_RADIUS + 150 * i - 12;
-        }
-
-        return `translate(${x_translate},${y_translate}) scale(${scale})`
-      })
-
-      // render down arrow
-      var down_arrow = this.svg.selectAll('.down_arrow').data(data);
-      down_arrow.enter().append('path')
-        .attr('d', `M0.1,0.9l5.4,5.4c0.1,0.1,0.1,0.1,0.2,0.1c0.1,0,0.2,0,0.2-0.1
-	         l5.4-5.4c0.1-0.1,0.1-0.3,0-0.4L11,0c-0.1-0.1-0.3-0.1-0.4,0L5.8,4.8L0.9,0C0.8-0.1,0.6-0.1,0.5,0L0.1,0.4C0,0.6,0,0.7,0.1,0.9z`)
+    if(this.props.studentView){
+      // render up arrow
+      var up_arrow = this.svg.selectAll('.up_arrow').data(data);
+      up_arrow.enter().append('path')
+        .attr('d', `M11.4,5.4L6,0C5.9-0.1,5.8-0.1,5.8-0.1c-0.1,0-0.2,0-0.2,0.1
+          L0.1,5.4C0,5.6,0,5.7,0.1,5.9l0.4,0.4c0.1,0.1,0.3,0.1,0.4,0l4.8-4.8l4.8,4.8c0.1,0.1,0.3,0.1,0.4,0l0.4-0.4
+          C11.5,5.7,11.5,5.6,11.4,5.4z`)
         .attr('fill', 'gray')
         .attr('pointer-events', 'none')
 
-      down_arrow
+      up_arrow
         .attr('transform', (d,i)=>{
           var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
-          var y_translate = TOPIC_RADIUS + 150 * i + 10;
+          var y_translate = TOPIC_RADIUS + 150 * i - 23;
           var scale = 2;
           if(d.type==='SUBTOPIC'){
             scale = 1.3;
               x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
-              y_translate = TOPIC_RADIUS + 150 * i + 5;
+              y_translate = TOPIC_RADIUS + 150 * i - 12;
           }
+
           return `translate(${x_translate},${y_translate}) scale(${scale})`
         })
+
+        // render down arrow
+        var down_arrow = this.svg.selectAll('.down_arrow').data(data);
+        down_arrow.enter().append('path')
+          .attr('d', `M0.1,0.9l5.4,5.4c0.1,0.1,0.1,0.1,0.2,0.1c0.1,0,0.2,0,0.2-0.1
+  	         l5.4-5.4c0.1-0.1,0.1-0.3,0-0.4L11,0c-0.1-0.1-0.3-0.1-0.4,0L5.8,4.8L0.9,0C0.8-0.1,0.6-0.1,0.5,0L0.1,0.4C0,0.6,0,0.7,0.1,0.9z`)
+          .attr('fill', 'gray')
+          .attr('pointer-events', 'none')
+
+        down_arrow
+          .attr('transform', (d,i)=>{
+            var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
+            var y_translate = TOPIC_RADIUS + 150 * i + 10;
+            var scale = 2;
+            if(d.type==='SUBTOPIC'){
+              scale = 1.3;
+                x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
+                y_translate = TOPIC_RADIUS + 150 * i + 5;
+            }
+            return `translate(${x_translate},${y_translate}) scale(${scale})`
+          })
+    }
+
   }
 
   // helper function needed in renderD3()
