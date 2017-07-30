@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 body{
-  background-color: #F8F8F9!important;
+  background-color: #e8fcff !important;
   height: 100%;
 }
 
@@ -19,6 +19,7 @@ h1{
 h2{
   color: #518FF5;
   font-size: 25px;
+  text-align: center;
 }
 
 h4{
@@ -195,7 +196,7 @@ font-size: 17px;
 }
 
 .sound-wave{
-  width: 300px;
+  width: 600px;
 }
 
 .canvasScreen {
@@ -211,4 +212,16 @@ font-size: 17px;
 }
 #aa{
   padding: 10px;
+}
+
+#getCode{
+  width: 600px !important;
+  background-color: #00BBBB !important;
+  color: white !important;
+
+}
+
+.btn{
+  background-color: #00BBBB !important;
+
 }

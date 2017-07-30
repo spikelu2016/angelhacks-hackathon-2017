@@ -10,7 +10,7 @@ export default class RenderCanvas extends React.Component {
     var self = this;
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    ctx.lineWidth = '1';
+    ctx.lineWidth = '3';
 
     var isActive = false;
 
