@@ -1,22 +1,20 @@
 import React from 'react'
 import ProfessorQuestionsContainer from './professorQuestionsContainer'
 import axios from 'axios'
+import D3Nodes from '../components/d3nodes.js'
 
 export default class ProfessorNodeContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      allQuestions: {
-        "t1": [],
-        "t2": [],
-        "t3": [],
-      },
+      allQuestions: {},
       questionsArr: [],
       topic: "",
+      nodeId: ""
     }
 
     this.props.socket.on('newQuestionAdded', (data) => {
-      const originalAllQuestions = this.state.allQuestions
+      const originalAllQuestions = this.state.allQuestions;
       originalAllQuestions[data.topic].push(data)
       this.setState({
         allQuestions: originalAllQuestions
@@ -25,42 +23,39 @@ export default class ProfessorNodeContainer extends React.Component {
   }
 
   componentDidMount() {
+    const originalAllQuestions = this.state.allQuestions;
+    for(let i = 0;  i < this.props.allNodes.length; i++){
+      originalAllQuestions[this.props.allNodes[i].description] = this.props.allNodes[i].questions;
+    }
     this.setState({
-      questionsArr: this.props.class[0].questions,
-      topic: this.props.class[0].description
-    })
-    // TODO: make an axios call to backend to popular the allQuestions
-    axios.post('http://localhost:3000/getAllQuestions', {
-    })
-    .then((resp) => {
-      const allQuestions = resp.data.questions
-      const originalAllQuestions = this.state.allQuestions
-      for(var i = 0; i < allQuestions.length; i++){
-        for(var topic in originalAllQuestions){
-          if(allQuestions[i].topic === topic) {
-            originalAllQuestions[topic].push(allQuestions[i]);
-          }
-        }
-      }
-      this.setState({
-        allQuestions: originalAllQuestions
-      })
+      allQuestions: originalAllQuestions
     })
   }
 
-  nodeClicked(topic, index) {
-    const questionsArr = this.props.class[index].questions;
+  nodeClicked(topic, index, nodeId) {
+    const questionsArr = this.props.allNodes[index].questions;
     this.setState({
       questionsArr: questionsArr,
-      topic: topic
+      topic: topic,
+      nodeId: nodeId
     })
   }
 
   render() {
     return(
       <div>
-        {this.state.class.map((item, index) => (<div onClick={() => this.nodeClicked(item.description, index)}>{item.description}</div>))}
-        <ProfessorQuestionsContainer socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic}/>
+        <div className="node-container">
+
+          <div className="card-row-1 student-card card-panel  white  card-panel-node">
+            {/* {this.props.allNodes.map((item, index) => (
+              <div><a href="#nav" key={index}  onClick={() => this.nodeClicked(item.description, index, item._id)}>{item.description}</a></div>))} */}
+              <D3Nodes allNodes={this.props.allNodes} nodeClicked={(item, index)=>this.nodeClicked(item.description, index, item._id)} />
+          </div>
+      </div>
+        <ProfessorQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
+        <div className="canvas-container">
+          this is the canvas container
+        </div>
       </div>
     )
   }

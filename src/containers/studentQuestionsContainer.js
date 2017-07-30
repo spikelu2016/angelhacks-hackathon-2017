@@ -1,6 +1,7 @@
 import React from 'react'
 import Question from '../components/question'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default class StudentQuestionsContainer extends React.Component {
   constructor(props) {
@@ -32,6 +33,9 @@ export default class StudentQuestionsContainer extends React.Component {
     this.setState({
       newQuestion: ""
     })
+    $('#nav').animate({
+        scrollTop: $('#anchor').offset().top
+    }, 500);
   }
 
   render() {
@@ -44,14 +48,13 @@ export default class StudentQuestionsContainer extends React.Component {
       <li>
         <div className="card-row-1 card-panel   white  card-panel-question">
           <div className="input-field ask-question-form">
-            <input value={this.state.newQuestion} id="questionInput" type="text" class="validate" placeholder="Ask a new question..." onChange={(e) => this.updateQuestion(e)}/>
+            <input value={this.state.newQuestion} id="questionInput" type="text" className="validate" placeholder="Ask a new question..." onChange={(e) => this.updateQuestion(e)}/>
         </div>
-
         </div>
-        <a  onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn askButton">Ask!</a>
-
+        <a onClick={(e) => this.askQuestionClicked(e)} className="waves-effect waves-light btn askButton">Ask!</a>
       </li>
-      {this.props.questionsArr.map((question, i) => <Question key={i} index={i} question={question.question} username={question.username}/>)}
+      {this.props.questionsArr.map((question, i) => <Question key={i} showName={false} index={i} question={question.question} username={question.username}/>)}
+      <li><span id="anchor"></span></li>
 </ul>
 </nav>
 </div>

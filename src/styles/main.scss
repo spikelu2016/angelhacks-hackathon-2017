@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
-npm body{
-  background-color: #EEEEEE;
+body{
+  background-color: #F8F8F9!important;
   height: 100%;
 }
 
@@ -24,7 +24,7 @@ h4{
   top: 22px;
 }
 .card-content-doc{
-  background-color: #518FF5;
+  background-color: #00bbbb;
   height: 70px !important;
   color: white;
   text-align: center;
@@ -40,6 +40,7 @@ h4{
   padding: 0;
   position: relative;
   right: 215px;
+
 }
 
 .card-panel-node{
@@ -158,4 +159,7 @@ font-size: 17px;
 .nav-text{
   color: #242424 !important;
   // color: white !important;
+}
+.topic_name{
+font-size: 25px;
 }
