@@ -52,6 +52,10 @@ app.post('/addQuestion', function(req, res) {
   })
 });
 
+app.put('/saveAudioFiles', function(req, res) {
+  console.log('hiiiiiiii', req.body.blob);
+});
+
 app.post('/getAllQuestions', function(req, res) {
   Node.find(function(err, allNodes){
     return res.send({allNodes: allNodes.reverse()});

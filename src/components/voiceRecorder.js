@@ -1,7 +1,8 @@
 import { ReactMic } from 'react-mic';
 import React from 'react'
+import axios from 'axios'
 
-export default class Example extends React.Component {
+export default class VoiceRecorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +25,24 @@ export default class Example extends React.Component {
   }
 
   onStop(recordedBlob) {
-    console.log('recordedBlob is: ', recordedBlob);
+    console.log(recordedBlob.blob);
+    axios.put('http://localhost:3000/saveAudioFiles', {blob: recordedBlob})
+    .then((resp) => {
+      console.log('got to the then');
+    });
+    // console.log('recordedBlob is: ', recordedBlob.blob);
+    // console.log('type of recordedblob is:', typeof recordedBlob);
+    // const a = document.createElement('a');
+    // a.style = 'display: none';
+    // document.body.appendChild(a);
+    // var url = recordedBlob.blobURL;
+    // a.href = url;
+    // a.download = 'hohohohoho.wav';
+    // a.click();
+    // window.URL.revokeObjectURL(url);
+    // document.body.removeChild(a);
   }
+
 
   render() {
     return (

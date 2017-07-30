@@ -1,60 +1,49 @@
-import React from 'react';
-import ProfessorNodeContainer from './professorNodeContainer';
+import React from 'react'
+import ProfessorNodeContainer from './professorNodeContainer'
 import io from 'socket.io-client'
+import axios from 'axios'
 
 
 export default class ProfessorContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      professor: {
-        username: '',
-        email: ''
-      },
-      class: [
-        {
-          description: 'Introduction to HTML',
-          type: 'TOPIC', // type is either 'TOPIC' or 'SUBTOPIC'
-          upvotes: 5,
-          downvotes: 4,
-          questions: [
-          ]
-        },
-        {
-          description: 'Introduction to Javascript',
-          type: 'TOPIC', // type is either 'TOPIC' or 'SUBTOPIC'
-          upvotes: 5,
-          downvotes: 4,
-          questions: [
-          ]
-        },
-        {
-          description: 'Introduction to React',
-          type: 'TOPIC', // type is either 'TOPIC' or 'SUBTOPIC'
-          upvotes: 5,
-          downvotes: 4,
-          questions: [
-          ]
-        },
-      ]
-    };
-    //SOCKETS SETUP
-    this.socket = io('http://localhost:3000');
+      username: '',
+      email: '',
+      allNodes: [],
+      hasLoaded: false
+    }
+    //SOCKET SETUP
+      this.socket = io('http://localhost:3000');
 
-    this.socket.on('userJoined', () => {
-      console.log('User joined')
-    })
+      this.socket.on('userJoined', () => {
+        console.log('User joined')
+      })
 
-    this.socket.on('userLeft', () => {
-      console.log('the user left')
-    })
-
+      this.socket.on('userLeft', () => {
+        console.log('the user left')
+      })
   }
+
+  componentDidMount() {
+    // TODO: make an axios call to backend to popular the allQuestions
+    axios.post('http://localhost:3000/getAllQuestions', {
+    })
+    .then((resp) => {
+      this.setState({
+        allNodes: resp.data.allNodes,
+        hasLoaded: true
+      })
+      }
+    );
+  }
+
+  //do socket connection in this class then pass it down
 
   render() {
     return (
       <div>
-        <ProfessorNodeContainer socket={this.socket} class={this.state.class}/>
+        {this.state.hasLoaded ? <ProfessorNodeContainer socket={this.socket} allNodes={this.state.allNodes}/> : ""}
       </div>
     );
   }
