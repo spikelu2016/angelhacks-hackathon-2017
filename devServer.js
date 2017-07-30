@@ -17,7 +17,8 @@ const io = require('socket.io')(server)
 
 
 const host = 'http://localhost';
-const port = process.env.npm_config_port ? process.env.npm_config_port : 3000;
+// const port = process.env.npm_config_port ? process.env.npm_config_port : 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
