@@ -80,7 +80,7 @@ export default class ProfessorNodeContainer extends React.Component {
         <div className="canvas-container">
           <VoiceRecorder />
           <Canvas socket={this.props.socket}/>
-          <RaisedButton id="getCode" label="Get Code" onClick={()=>this.handleOpen()} />
+          <div id="getCode" className="btn" onClick={()=>this.handleOpen()} > Get access code</div>
         <Dialog
           title=""
           actions={actions}
