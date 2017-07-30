@@ -46,16 +46,28 @@ io.on('connection', socket => {
     })
   })
 
-  socket.on('startingCoordinates', (data)=> {
-    socket.broadcast.emit('startingCoordinates', data)
+  // socket.on('startingCoordinates', (data)=> {
+  //   socket.broadcast.emit('startingCoordinates', data)
+  // })
+  //
+  // socket.on('endingCoordinate', ()=> {
+  //   socket.broadcast.emit('endingCoordinate')
+  // })
+  //
+  // socket.on('Coordinates', (data)=> {
+  //   socket.broadcast.emit('Coordinates', data)
+  // })
+
+  socket.on('startdrawing', (data)=> {
+    socket.broadcast.emit('startdrawing', {x:data.x, y:data.y})
   })
 
-  socket.on('endingCoordinate', ()=> {
-    socket.broadcast.emit('endingCoordinate')
+  socket.on('drawing', (data)=> {
+    socket.broadcast.emit('drawing', {x:data.x, y:data.y})
   })
 
-  socket.on('Coordinates', (data)=> {
-    socket.broadcast.emit('Coordinates', data)
+  socket.on('stopdrawing', (data)=> {
+    socket.broadcast.emit('stopdrawing', {x:data.x, y:data.y})
   })
 
   socket.on('downvote', (data)=>{
