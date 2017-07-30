@@ -55,7 +55,7 @@ export default class ProfessorNodeContainer extends React.Component {
       </div>
         <ProfessorQuestionsContainer className="StudentQuestionsContainer" socket={this.props.socket} questionsArr={this.state.questionsArr} topic={this.state.topic} nodeId={this.state.nodeId}/>
         <div className="canvas-container">
-          <Canvas />
+          <Canvas socket={this.props.socket}/>
         </div>
       </div>
     )

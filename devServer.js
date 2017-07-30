@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 io.on('connection', socket => {
   console.log('client connected to socket');
 
-
   socket.on('newQuestion', (data) => {
     console.log('the server saw this')
     socket.broadcast.emit('newQuestionAdded', data)
@@ -45,6 +44,14 @@ io.on('connection', socket => {
         console.log('error', err);
       })
     })
+  })
+
+  socket.on('startingCoordinates', (data)=> {
+    socket.broadcast.emit('startingCoordinates', data)
+  })
+
+  socket.on('Coordinates', (data)=> {
+    socket.broadcast.emit('Coordinates', data)
   })
 
   socket.on('downvote', (data)=>{
