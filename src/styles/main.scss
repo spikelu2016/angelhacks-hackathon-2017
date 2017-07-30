@@ -1,7 +1,10 @@
-body{
+@import url('https://fonts.googleapis.com/css?family=Bellefair');
+
+npm body{
   background-color: #EEEEEE;
   height: 100%;
 }
+
 html{
   height: 100%;
 }
@@ -78,7 +81,8 @@ opacity:1;
 }
 
 #nav {
-  font-size: 18px;
+font-family: 'Bellefair', serif !important;
+font-size: 18px;
 line-height: 150% !important;
 background: #80deea;
 float: left;
