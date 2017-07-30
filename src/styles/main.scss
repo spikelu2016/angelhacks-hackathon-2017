@@ -172,11 +172,11 @@ font-size: 17px;
   font-size: 25px;
 }
 
-#drawingboard {
+.canvasScreen {
     width: 100% !important;
     height: 2000px;
     background-color: white;
     clear: both;
     position:absolute;
-
+    border: black solid 5px;
   }
