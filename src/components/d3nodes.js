@@ -22,6 +22,8 @@ const NODES_DISTANCE = 150;
 const TOPIC_QUESTION_COUNT_RADIUS = 15;
 const SUBTOPIC_QUESTION_COUNT_RADIUS = 12;
 
+const X_OFFSET = 5;
+
 export default class D3Nodes extends React.Component{
   constructor(){
     super();
@@ -35,7 +37,7 @@ export default class D3Nodes extends React.Component{
     var self = this;
     var nodes = this.svg.selectAll('.node').data(data);
     nodes.enter().append('circle')
-      .attr('cx', TOPIC_RADIUS)
+      .attr('cx', TOPIC_RADIUS + X_OFFSET)
       .attr('stroke-width', '5')
       .attr('fill', 'white')
     nodes
@@ -51,35 +53,10 @@ export default class D3Nodes extends React.Component{
           return DANGER_COLOR;
         }
       })
-      // .on('mouseover', function(d, i){
-      //   d3.select(this).attr({
-      //     fill: self.shadeColor(d3.select(this).attr('fill'), 0.3)
-      //   });
-      // })
-      // .on('mouseout', function(data, i){
-      //   var temp;
-      //   if(data.upvotes >= data.downvotes){
-      //     temp = NEUTRAL_COLOR;
-      //   } else if(data.downvotes - data.upvotes < 5){
-      //     temp = WARNING_COLOR;
-      //   } else {
-      //     temp = DANGER_COLOR;
-      //   }
-      //   d3.select(this).attr({
-      //     fill: temp
-      //   });
-      // })
       .on('click', function(d, i){
         alert('You clicked on node no.' + i);
       })
     nodes.exit().remove();
-
-    var testing_arraw = this.svg.selectAll('up_arrow')
-    .append('path')
-    .attr('d', `M11.4,5.4L6,0C5.9-0.1,5.8-0.1,5.8-0.1c-0.1,0-0.2,0-0.2,0.1
-L0.1,5.4C0,5.6,0,5.7,0.1,5.9l0.4,0.4c0.1,0.1,0.3,0.1,0.4,0l4.8-4.8l4.8,4.8c0.1,0.1,0.3,0.1,0.4,0l0.4-0.4
-C11.5,5.7,11.5,5.6,11.4,5.4z`)
-    .attr('fill', '#BBBBBB')
 
     // render top half of circle for upvoting
     var lower_half_circle = this.svg.selectAll('.lower_half_circle').data(data);
@@ -95,11 +72,11 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
           start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
           end_x = 50
         }
-        return 'M' + String(start_x) + ',' + String(50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0';
+        return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,0' + String(end_x) + ',0 Z';
       })
       .on('mouseover', function(d, i){
         d3.select(this)
-          .attr('fill', 'rgba(255,255,255,0.5)')
+          .attr('fill', 'rgba(239, 98, 59, 0.5)')
       })
       .on('mouseout', function(d, i){
         d3.select(this)
@@ -127,12 +104,12 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
           start_x = TOPIC_RADIUS - SUBTOPIC_RADIUS;
           end_x = 50
         }
-        return 'M' + String(start_x) + ',' + String(50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0';
+        return 'M' + String(start_x + X_OFFSET) + ',' + String(50 + 150 * i) + ' a1,1 0 0,1' + String(end_x) + ',0 Z';
       })
       .on('mouseover', function(d, i){
         d3.select(this)
           // .attr('fill', 'rgba(255,255,255,0.7)')
-          .attr('fill', 'rgba(255,255,255,0.5)')
+          .attr('fill', 'rgba(38, 166, 154, 0.5)')
       })
       .on('mouseout', function(d, i){
         d3.select(this)
@@ -149,30 +126,33 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     // renderD3 questions count (blue circles on top right)
     var questions_count = this.svg.selectAll('.questions_count').data(data);
     questions_count.enter().append('circle')
+
     questions_count
       .attr('class', 'questions_count')
       .attr('r', (data) => (data.type==='TOPIC' ? TOPIC_QUESTION_COUNT_RADIUS : SUBTOPIC_QUESTION_COUNT_RADIUS))
-      .attr('cx', (data) => (data.type==='TOPIC' ? (TOPIC_RADIUS + Math.cos(Math.PI/4) * TOPIC_RADIUS) : (TOPIC_RADIUS + Math.cos(Math.PI/4) * SUBTOPIC_RADIUS)))
+      .attr('cx', (data) => (data.type==='TOPIC' ? (TOPIC_RADIUS + Math.cos(Math.PI/4) * TOPIC_RADIUS + X_OFFSET) : (TOPIC_RADIUS + Math.cos(Math.PI/4) * SUBTOPIC_RADIUS + X_OFFSET)))
       .attr('cy', (data, i) => (data.type==='TOPIC' ? (TOPIC_RADIUS + i * NODES_DISTANCE - Math.cos(Math.PI/4) * TOPIC_RADIUS) : (TOPIC_RADIUS + i * NODES_DISTANCE - Math.sin(Math.PI/4)  * SUBTOPIC_RADIUS)))
       .attr('fill', (data) => (data.questions.length===0 ? 'none' : QUESTION_COUNT_COLOR))
+
     questions_count.exit().remove();
 
     // render up arrow
     var up_arrow = this.svg.selectAll('.up_arrow').data(data);
     up_arrow.enter().append('path')
       .attr('d', `M11.4,5.4L6,0C5.9-0.1,5.8-0.1,5.8-0.1c-0.1,0-0.2,0-0.2,0.1
-      L0.1,5.4C0,5.6,0,5.7,0.1,5.9l0.4,0.4c0.1,0.1,0.3,0.1,0.4,0l4.8-4.8l4.8,4.8c0.1,0.1,0.3,0.1,0.4,0l0.4-0.4
-      C11.5,5.7,11.5,5.6,11.4,5.4z`)
+        L0.1,5.4C0,5.6,0,5.7,0.1,5.9l0.4,0.4c0.1,0.1,0.3,0.1,0.4,0l4.8-4.8l4.8,4.8c0.1,0.1,0.3,0.1,0.4,0l0.4-0.4
+        C11.5,5.7,11.5,5.6,11.4,5.4z`)
       .attr('fill', 'gray')
+      .attr('pointer-events', 'none')
 
     up_arrow
       .attr('transform', (d,i)=>{
-        var x_translate = TOPIC_RADIUS - 12;
+        var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
         var y_translate = TOPIC_RADIUS + 150 * i - 23;
         var scale = 2;
         if(d.type==='SUBTOPIC'){
           scale = 1.3;
-            x_translate = TOPIC_RADIUS - 7;
+            x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
             y_translate = TOPIC_RADIUS + 150 * i - 12;
         }
 
@@ -183,23 +163,22 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
       var down_arrow = this.svg.selectAll('.down_arrow').data(data);
       down_arrow.enter().append('path')
         .attr('d', `M0.1,0.9l5.4,5.4c0.1,0.1,0.1,0.1,0.2,0.1c0.1,0,0.2,0,0.2-0.1
-	l5.4-5.4c0.1-0.1,0.1-0.3,0-0.4L11,0c-0.1-0.1-0.3-0.1-0.4,0L5.8,4.8L0.9,0C0.8-0.1,0.6-0.1,0.5,0L0.1,0.4C0,0.6,0,0.7,0.1,0.9z`)
+	         l5.4-5.4c0.1-0.1,0.1-0.3,0-0.4L11,0c-0.1-0.1-0.3-0.1-0.4,0L5.8,4.8L0.9,0C0.8-0.1,0.6-0.1,0.5,0L0.1,0.4C0,0.6,0,0.7,0.1,0.9z`)
         .attr('fill', 'gray')
+        .attr('pointer-events', 'none')
 
       down_arrow
         .attr('transform', (d,i)=>{
-          var x_translate = TOPIC_RADIUS - 12;
+          var x_translate = TOPIC_RADIUS - 12 + X_OFFSET;
           var y_translate = TOPIC_RADIUS + 150 * i + 10;
           var scale = 2;
           if(d.type==='SUBTOPIC'){
             scale = 1.3;
-              x_translate = TOPIC_RADIUS - 7;
+              x_translate = TOPIC_RADIUS - 7 + X_OFFSET;
               y_translate = TOPIC_RADIUS + 150 * i + 5;
           }
-
           return `translate(${x_translate},${y_translate}) scale(${scale})`
         })
-
   }
 
   // helper function needed in renderD3()
@@ -215,7 +194,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     //renderD3 description of topic next to the topic nodes
     var topic_name = this.svg.selectAll('.topic_name').data(data);
     topic_name.enter().append('text')
-      .attr('x', TOPIC_RADIUS*2 + 10) //50 is margin between text and node
+      .attr('x', TOPIC_RADIUS*2 + 10 + X_OFFSET) //50 is margin between text and node
     topic_name
       .attr('class', 'topic_name')
       .attr('y', (data, i) => (TOPIC_RADIUS + i * NODES_DISTANCE))
@@ -228,7 +207,7 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
     question_number.enter().append('text')
       .attr('fill', 'white');
     // for hardcoding the position of the number to be at the center of circle
-    var x_offset = 0;
+    var x_offset = 0 + X_OFFSET;
     var y_offset = 5;
     question_number
       .attr('class', 'question_number')
@@ -267,13 +246,6 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
       this.renderD3Text(data);
   }
 
-  // function for lightening / darkening HEX color code
-  // @param: color: #RRGGBB, percent: -1.0 to +1.0
-  shadeColor(color, percent) {
-    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
-  }
-
   // shouldComponentUpdate() {
   //   return false; // This prevents future re-renders of this component
   // }
@@ -284,17 +256,20 @@ C11.5,5.7,11.5,5.6,11.4,5.4z`)
   }
 
   componentDidMount(){
-    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + 2 * TOPIC_RADIUS;
+    var svg_height = (this.props.allNodes.length -1) * NODES_DISTANCE + 2 * TOPIC_RADIUS + 5;
     this.svg
       .attr('width', 400)
       .attr('height', svg_height)
 
     var line = this.svg.append('line')
-      .attr('x1', TOPIC_RADIUS)
+      .attr('x1', TOPIC_RADIUS + X_OFFSET)
       .attr('y1', TOPIC_RADIUS)
-      .attr('x2', TOPIC_RADIUS)
+      .attr('x2', TOPIC_RADIUS + X_OFFSET)
       .attr('stroke', 'gray')
       .attr('stroke-width', '3')
+
+    // var use = this.svg.append('use')
+    //   .attr('xlink:href', '.questions_count')
 
     this.renderD3(this.props.allNodes);
   }
