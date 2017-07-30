@@ -22,6 +22,10 @@ export default class RenderCanvas extends React.Component {
       draw(data)
     })
 
+    self.props.socket.on('endingCoordinate', ()=> {
+      close()
+    })
+
     function startDraw(point) {
       ctx.beginPath();
       ctx.moveTo(point.x, point.y);
@@ -32,6 +36,9 @@ export default class RenderCanvas extends React.Component {
       ctx.stroke();
     }
 
+    function close () {
+      ctx.closePath()
+    }
   }
 
   render() {

@@ -50,6 +50,10 @@ io.on('connection', socket => {
     socket.broadcast.emit('startingCoordinates', data)
   })
 
+  socket.on('endingCoordinate', ()=> {
+    socket.broadcast.emit('endingCoordinate')
+  })
+
   socket.on('Coordinates', (data)=> {
     socket.broadcast.emit('Coordinates', data)
   })
