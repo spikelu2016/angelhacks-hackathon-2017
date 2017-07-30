@@ -12,6 +12,7 @@ export default class ProfessorSignup extends React.Component {
     }
   }
 
+
   redirect(e) {
     e.preventDefault()
     let nameArr = this.state.name.split(" ")
@@ -59,16 +60,6 @@ export default class ProfessorSignup extends React.Component {
                 <div className="input-field col s10 offset-s1">
                   <input id="coure" type="text" className="validate" onChange={(e)=> this.updateCourse(e)}/>
                   <label htmlFor="coure">Course Name</label>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="row">
-            <form className="col s12">
-              <div className="row">
-                <div className="input-field col s10 offset-s1">
-                  <input id="email" type="email" className="validate"/>
-                  <label htmlFor="email">Email</label>
                 </div>
               </div>
             </form>

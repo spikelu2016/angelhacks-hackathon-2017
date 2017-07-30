@@ -5,7 +5,6 @@ import StudentContainer from './studentContainer'
 import LoginContainer from './loginContainer'
 import ProfessorSignup from '../components/ProfessorSignup'
 import StudentSignup from '../components/StudentSignup'
-import EnterCode from '../components/EnterCode'
 
 export default class Routes extends React.Component {
   constructor(props){
@@ -16,7 +15,6 @@ export default class Routes extends React.Component {
     return(
       <div>
         <Switch>
-              <Route path="/studentCode" component={EnterCode}/>
               <Route path="/studentSignup" component={StudentSignup}/>
               <Route path="/professorsignup" component={ProfessorSignup}/>
               <Route path="/" exact={true} component={LoginContainer}/>
